@@ -103,7 +103,7 @@ ChatBot.sendMessage = function () {
             chatInput.val("")
         }
     }
-};
+}; 
 
 $.ajax("/test",{
     type: "POST",
