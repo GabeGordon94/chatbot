@@ -12,7 +12,10 @@ def getAnswer(input):
     response = {'msg': input, 'animation': ''}
     if checkForSwearWord(input):
         response['msg'] = handleInput(input,'curse')
-        response['animation'] = 'no'
+        response['animation'] = 'crying'
+    elif 'money' in input.lower() or 'cost' in input.lower():
+        response['msg'] = handleInput(input, 'money')
+        response['animation'] = 'money'
     elif 'joke' in input.lower():
         response['msg'] = handleInput(input, 'joke')
         response['animation'] = 'giggling'
@@ -23,7 +26,7 @@ def getAnswer(input):
         response['msg'] = handleInput(input, 'greeting')
         response['animation'] = 'excited'
     elif input.endswith('!'):
-        response['msg'] = "Woh! You're excited to meet me"
+        response['msg'] = handleInput(input, 'excited');
         response['animation'] = 'afraid'
     elif input.startswith("I") or input.startswith('i'):
         response['msg'] = "Stop talking about yourself."
@@ -46,6 +49,10 @@ def getAnswer(input):
 def handleInput(input, type):
     if type == 'question':
         return getAnswerToQuestion(input)
+    elif type == 'money':
+        return getAnswerAboutMoney(input);
+    elif type == 'excited':
+        return getAnswerToExcited(input)
     elif type == 'greeting':
         return getAnswerToGreeting(input)
     elif type == 'love':
@@ -57,6 +64,19 @@ def handleInput(input, type):
     elif type == 'joke':
         return getJoke(input)
     return 'default'
+
+def getAnswerAboutMoney(input):
+    sentList=input.split(' ');
+    nums=[]
+    for word in sentList:
+        if type(word) == int:
+            nums.append(word)
+    if len(nums) == 0:
+        nums=99999
+    return f"We're talking about money?! I'll take the ${nums}"
+
+def getAnswerToExcited(input):
+    return "Woh! You're excited to meet me"
 
 def getJoke(input):
     jokesList=['I ate a clock yesterday, it was very time-consuming', 'Have you played the updated kids’ game? I Spy With My Little Eye . . . Phone.','A perfectionist walked into a bar…apparently, the bar wasn’t set high enough.','Did you hear about the semi-colon that broke the law? He was given two consecutive sentences.','What’s the difference between ignorance and apathy? I don’t know and I don’t care.']
