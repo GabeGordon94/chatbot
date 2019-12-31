@@ -13,7 +13,7 @@ def index():
 @route("/chat", method='POST')
 def chat():
     user_message = request.POST.get('msg')
-    return (AI.getAner(user_message))
+    return (AI.getAnswer(user_message))
 
 
 @route("/test", method='POST')

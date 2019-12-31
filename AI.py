@@ -1,3 +1,4 @@
+from datetime import datetime
 import random
 import requests
 import json
@@ -23,6 +24,9 @@ def getAnswer(input):
     elif input in questionsAsked:
         response['msg'] = handleInput(input, 'alreadyAsked')
         response['animation'] = 'heartbroke'
+    elif 'time' in input:
+        response['msg'] = handleInput(input, 'time')
+        response['animation'] = 'takeoff'
     elif 'weather' in input.lower():
         response['msg'] = handleInput(input, 'weather')
         response['animation'] = 'excited'
@@ -32,18 +36,12 @@ def getAnswer(input):
     elif 'joke' in input.lower():
         response['msg'] = handleInput(input, 'joke')
         response['animation'] = 'giggling'
-    elif input.endswith('?'):
-        response['msg'] = handleInput(input, 'question')
-        response['animation'] = 'dancing'
     elif any(word in input for word in ['hello', 'hi', 'hey']):
         response['msg'] = handleInput(input, 'greeting')
         response['animation'] = 'excited'
     elif any(word in input for word in ['nyt', 'headline', 'NYT']):
         response['msg'] = handleInput(input, 'headline')
         response['animation'] = 'money'
-    elif input.endswith('!'):
-        response['msg'] = handleInput(input, 'excited');
-        response['animation'] = 'afraid'
     elif input.lower() == 'count':
         response['msg'] = f"You have asked me {counter} questions"
         response['animation'] = 'takeoff'
@@ -68,6 +66,12 @@ def getAnswer(input):
     elif input.startswith("I") or input.startswith('i'):
         response['msg'] = "Stop talking about yourself."
         response['animation'] = 'bored'
+    elif input.endswith('?'):
+        response['msg'] = handleInput(input, 'question')
+        response['animation'] = 'dancing'
+    elif input.endswith('!'):
+        response['msg'] = handleInput(input, 'excited');
+        response['animation'] = 'afraid'
     else:
         response['msg'] = "I don't understand"
         response['animation'] = 'confused'
@@ -79,6 +83,8 @@ def getAnswer(input):
 def handleInput(input, type):
     if type == 'question':
         return getAnswerToQuestion(input)
+    elif type == 'time':
+        return getAnswerToTime(input)
     elif type == 'name':
         return getAnswerToName(input)
     elif type == 'help':
@@ -112,6 +118,10 @@ def handleInput(input, type):
     elif type == 'joke':
         return getJoke(input)
     return 'default'
+
+def getAnswerToTime(input):
+    return f"It is {datetime. now()}"
+
 
 def getAnswerToName(input):
     return f"Hello {input.title()}! Nice to meet you!"
